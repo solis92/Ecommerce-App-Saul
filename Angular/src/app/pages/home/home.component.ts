@@ -20,7 +20,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit{
-
+  userid : number = 0;
   items : any []= [];
 
   // items = [
@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit{
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    
     const token = localStorage.getItem('tokenBearer')
     var iteraccion = 1;
     if(token)
@@ -43,7 +44,7 @@ export class HomeComponent implements OnInit{
 
         for (let key in decoded) {
           if(iteraccion == 1){
-          const userid = (decoded as any)[key];
+          this.userid = (decoded as any)[key];
           }
           iteraccion = iteraccion + 1;
         }
@@ -58,6 +59,15 @@ export class HomeComponent implements OnInit{
           },
           error: (err) => {
             console.error('No se pueden obtener la lista ', err);
+          }
+        });
+
+        const order = this.authService.productid(this.userid,token).subscribe({
+          next: (data) => {
+            console.log(data);
+          },
+          error: (err) => {
+            console.error('No se puede crear la orden ', err);
           }
         });
         console.log('lista ');
