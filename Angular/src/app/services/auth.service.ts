@@ -57,14 +57,14 @@ export class AuthService {
   }
 
   //OrderDetails
-  detailcreate(id: number, token: string): Observable<OrderDetailResponse> {
+  detailcreate(detail: OrderDetail, token: string): Observable<OrderDetailResponse> {
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}`});
-    return this.http.post<OrderDetailResponse>(`${this.apiUrl}/api/Orders/${id}`,{headers});
+    return this.http.post<OrderDetailResponse>(`${this.apiUrl}/api/Details`, detail,{headers});
   }
 
-  oetailget(id: number, token: string): Observable<OrderDetailResponse> {
+  detailget(id: number, token: string): Observable<OrderDetailResponse> {
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}`});
-    return this.http.post<OrderDetailResponse>(`${this.apiUrl}/api/Orders/${id}`,{headers});
+    return this.http.post<OrderDetailResponse>(`${this.apiUrl}/api/Details/${id}`,{headers});
   }
 
 }
