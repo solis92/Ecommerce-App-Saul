@@ -1,0 +1,38 @@
+/* shop.component.scss */
+.shop-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .shop-card {
+    width: 100%;
+    max-width: 1200px;
+    padding: 16px;
+  }
+  
+  .item-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .mat-grid-tile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+
+  .item {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  button {
+    margin-top: 10px;
+  }

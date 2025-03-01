@@ -1,0 +1,28 @@
+
+<div class="register-container">
+    <mat-card class="register-card">
+      <mat-card-header>
+        <mat-card-title>Iniciar sesión</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form (ngSubmit)="onRegister()" class="register-form">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Nombre</mat-label>
+            <input matInput type="text" [(ngModel)]="user.nombre" name="nombre" required>
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Correo electrónico</mat-label>
+            <input matInput type="email" [(ngModel)]="user.correo" name="correo" required>
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Contraseña</mat-label>
+            <input matInput type="password" [(ngModel)]="user.clave" name="clave" required>
+          </mat-form-field>
+  
+          <button mat-raised-button color="primary" type="submit" [disabled]="!user.correo || !user.clave || !user.nombre">Registro</button>
+        </form>
+        <p *ngIf="errorMessage" class="error">{{errorMessage}}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>

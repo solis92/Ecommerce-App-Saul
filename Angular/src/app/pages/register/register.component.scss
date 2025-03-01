@@ -1,0 +1,24 @@
+/* login.component.scss */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Altura completa de la ventana */
+  }
+  
+  .login-card {
+    width: 100%;
+    max-width: 400px; /* Ajusta el tamaño del formulario */
+    padding: 16px;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
