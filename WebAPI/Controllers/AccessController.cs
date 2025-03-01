@@ -41,21 +41,5 @@ namespace WebAPI.Controllers
             else
                 return StatusCode(StatusCodes.Status200OK, new { isSuccess = false });
         }
-
-        [HttpPost]
-        [Route("Login")]
-        public async Task<IActionResult> Login(LoginDTO objeto)
-        {
-            var usuarioEncontrado = await _dbContext.Usuarios
-                                                    .Where(u => 
-                                                        u.Correo == objeto.Correo &&
-                                                        u.Clave == _utilities.encryptSHA256(objeto.Clave)
-                                                      ).FirstOrDefaultAsync();
-
-            if (usuarioEncontrado == null)
-                return StatusCode(StatusCodes.Status200OK, new { isSuccess = false, token = "" });
-            else
-                return StatusCode(StatusCodes.Status200OK, new { isSuccess = true, token = _utilities.createJWT(usuarioEncontrado)});
-        }
     }
 }

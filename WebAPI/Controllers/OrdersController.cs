@@ -18,16 +18,14 @@ namespace WebAPI.Controllers
             _dbContext = dbContext;
         }
 
-        [HttpGet]
-        [Route("Orders")]
+        [HttpGet("")]
         public async Task<IActionResult> GetAllOrders()
         {
             var lista = await _dbContext.Orders.ToListAsync();
             return StatusCode(StatusCodes.Status200OK, new { value = lista });
         }
 
-        [HttpGet]
-        [Route("Order")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetOrder(int id)
         {
             Order lista = await _dbContext.Orders.FirstOrDefaultAsync(x => x.IdOrden == id);
@@ -35,7 +33,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        [Route("CreateOrder")]
+        [Route("Create")]
         public async Task<IActionResult> CreateOrders(Order order)
         {
             var orders = _dbContext.Orders.FromSqlInterpolated($"exec [dbo].[InsertOrder] {order.IdUsuario};").ToListAsync();
@@ -43,29 +41,11 @@ namespace WebAPI.Controllers
         }
 
         [HttpPatch]
-        [Route("UpdateOrder")]
+        [Route("Update")]
         public IActionResult UpdateOrder(int id)
         {
             var order =  _dbContext.Orders.FromSqlInterpolated($"exec [dbo].[UpdateOrder] {id};").ToListAsync();
             return StatusCode(StatusCodes.Status200OK, new { value = order });
-        }
-
-        [HttpGet]
-        [Route("GetOrderDetail")]
-        public async Task<IActionResult> GetOrderDetails(int id)
-        {
-            var lista = await _dbContext.OrderDetails.FromSqlInterpolated($"exec [dbo].[GetOrderDetails] {id};").ToListAsync();
-            return StatusCode(StatusCodes.Status200OK, new { value = lista });
-        }
-
-        [HttpPost]
-        [Route("CreateOrderDetail")]
-        public async Task<IActionResult> CreateOrderDetail(OrderDetail orderDetails)
-        {
-            var detail = await _dbContext.OrderDetails.FromSqlInterpolated($"exec [dbo].[InsertOrderDetail] {orderDetails.IdOrden},{orderDetails.IdProducto},{orderDetails.Cantidad},{orderDetails.Costo},{orderDetails.SubTotal};").ToListAsync();
-            return StatusCode(StatusCodes.Status200OK, new { value = detail });
-        }
-
-        
+        }        
     }
 }
