@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import {UserRegister, UserLogin,UserResponse} from '../models/user.model'
 import { ProductResponse, Product } from '../models/product.model';
-import { OrderDetail, OrderResponse } from '../models/order.model';
+import { OrderDetail, OrderDetailResponse, OrderResponse } from '../models/order.model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +22,7 @@ export class AuthService {
     return this.http.post<UserResponse>(`${this.apiUrl}/api/Login/Login`, user);
   }
 
+  //Products
   productlist(token: string): Observable<Product[]> {
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}`});
     return this.http.get<{value:Product[]}>(`${this.apiUrl}/api/products/`,{headers}).pipe(
@@ -31,19 +32,39 @@ export class AuthService {
 
   productid(id: number, token: string): Observable<ProductResponse> {
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}`});
-    //return this.http.get<any>(`${this.apiUrl}/${id}`);
     return this.http.post<ProductResponse>(`${this.apiUrl}/api/products/${id}`,{headers});
   }
 
-  createOrder(id: number, token: string): Observable<OrderResponse> {
+  //Orders
+  orderlist(token: string): Observable<OrderResponse> {
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}`});
-    //return this.http.get<any>(`${this.apiUrl}/${id}`);
-    return this.http.post<OrderResponse>(`${this.apiUrl}/api/products/${id}`,{headers});
+    return this.http.post<OrderResponse>(`${this.apiUrl}/api/Orders/`,{headers});
   }
 
-  createOrdeDetail(detail: OrderDetail, token: string): Observable<OrderResponse> {
+  ordercreate(id: number, token: string): Observable<OrderResponse> {
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}`});
-    return this.http.post<OrderResponse>(`${this.apiUrl}/api/orders/`,detail,{headers});
+    return this.http.post<OrderResponse>(`${this.apiUrl}/api/Orders/${id}`,{headers});
+  }
+
+  orderget(id: number, token: string): Observable<OrderResponse> {
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token}`});
+    return this.http.post<OrderResponse>(`${this.apiUrl}/api/Orders/${id}`,{headers});
+  }
+
+  orderupdate(id: number, token: string): Observable<OrderResponse> {
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token}`});
+    return this.http.patch<OrderResponse>(`${this.apiUrl}/api/Orders/${id}`,{headers});
+  }
+
+  //OrderDetails
+  detailcreate(id: number, token: string): Observable<OrderDetailResponse> {
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token}`});
+    return this.http.post<OrderDetailResponse>(`${this.apiUrl}/api/Orders/${id}`,{headers});
+  }
+
+  oetailget(id: number, token: string): Observable<OrderDetailResponse> {
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token}`});
+    return this.http.post<OrderDetailResponse>(`${this.apiUrl}/api/Orders/${id}`,{headers});
   }
 
 }
